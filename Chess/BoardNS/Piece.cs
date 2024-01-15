@@ -17,5 +17,10 @@ namespace BoardNS
             NumberOfTimesMoved = 0;
         }
 
+        public void IncrementNumberOfTimesMoved()
+        {
+            NumberOfTimesMoved++;
+        }
+
     }
 }

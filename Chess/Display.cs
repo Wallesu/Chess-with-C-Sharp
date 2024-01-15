@@ -1,4 +1,6 @@
 ﻿using BoardNS;
+using Game;
+using Pieces;
 
 namespace Chess
 {
@@ -35,6 +37,13 @@ namespace Chess
 
         }
 
+        public static BoardPosition ReadPosition()
+        {
+            string s = Console.ReadLine();
+            char column = s[0];
+            int row = int.Parse(s[1].ToString());
+            return new BoardPosition(column, row);
+        }
 
     }
 }

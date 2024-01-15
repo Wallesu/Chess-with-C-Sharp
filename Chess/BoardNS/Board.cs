@@ -35,6 +35,16 @@ namespace BoardNS
             _pieces[position.Row, position.Column] = piece;
             piece.Position = position;
         }
+
+        public Piece RemovePiece(Position position)
+        {
+            if (GetPiece(position) == null) return null;
+
+            Piece piece = GetPiece(position);
+            piece.Position = null;
+            _pieces[position.Row, position.Column] = null;
+            return piece;
+        }
         public bool PositionIsValid(Position position)
         {
             if(position == null) return false;

@@ -1,5 +1,5 @@
-﻿using BoardNS;
-using Pieces;
+﻿using Game;
+using BoardNS;
 
 namespace Chess
 {
@@ -9,13 +9,23 @@ namespace Chess
         {
             try
             {
-                Board board = new Board(8, 8);
-                board.SetPiece(new King(board, Color.White), new Position(1, 2));
-                board.SetPiece(new Rook(board, Color.White), new Position(3, 2));
-                board.SetPiece(new Rook(board, Color.Black), new Position(0, 5));
+                Match match = new Match();
 
+                while (!match.IsFinished)
+                {
+                    Console.Clear();
+                    Display.PrintBoard(match.Board);
 
-                Display.PrintBoard(board);
+                    Console.WriteLine("Origem: ");
+                    Position initialPosition = Display.ReadPosition().ToPosition();
+
+                    Console.WriteLine("Destino: ");
+                    Position destinyPosition = Display.ReadPosition().ToPosition();
+
+                    match.ExecuteMoviment(initialPosition, destinyPosition);
+
+                }
+
 
             } catch(Exception ex)
             {
