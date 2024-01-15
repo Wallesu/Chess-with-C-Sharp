@@ -1,16 +1,22 @@
-﻿namespace Board
+﻿namespace BoardNS
 {
     class Board
     {
         public int Rows { get; set; }
         public int Columns { get; set; }
-        private Piece[,] Pieces { get; set; }
+
+        private Piece[,] _pieces;
 
         public Board(int rows, int columns)
         {
             Rows = rows;
             Columns = columns;
-            Pieces = new Piece[Rows, Columns];
+            _pieces = new Piece[Rows, Columns];
+        }
+
+        public Piece GetPiece(int row, int col)
+        {
+            return _pieces[row, col];
         }
     }
 }

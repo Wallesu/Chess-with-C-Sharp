@@ -1,4 +1,4 @@
-﻿using Board;
+﻿using BoardNS;
 
 namespace Chess
 {
@@ -10,7 +10,9 @@ namespace Chess
 
             position = new Position(3, 4);
 
-            Console.WriteLine(position);
+            Board board = new Board(8, 8);
+
+            Display.PrintBoard(board);
         }
     }
 }
