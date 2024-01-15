@@ -10,7 +10,7 @@ namespace Chess
             {
                 for(int j = 0; j < board.Columns; j++)
                 {
-                    Console.Write((board.GetPiece(i, j) != null ? board.GetPiece(i, j) :  "- ") + " ");
+                    Console.Write((board.GetPiece(i, j) != null ? board.GetPiece(i, j) + " ":  "- ") + " ");
                 }
                 Console.WriteLine();
             }
