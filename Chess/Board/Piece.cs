@@ -1,0 +1,21 @@
+﻿
+
+namespace Board
+{
+    class Piece
+    {
+        public Position Position { get; set; }
+        public Color Color { get; set; }
+        public int NumberOfTimesMoved { get; protected set; }
+        public Board Board { get; protected set; }
+
+        public Piece(Position position, Board board, Color color)
+        {
+            Position = position;
+            Board = board;
+            Color = color;
+            NumberOfTimesMoved = 0;
+        }
+
+    }
+}
