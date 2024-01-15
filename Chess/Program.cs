@@ -9,9 +9,13 @@ namespace Chess
         {
             try
             {
-                BoardPosition position = new BoardPosition('c', 7);
-                Console.WriteLine(position.ToPosition());
+                Board board = new Board(8, 8);
+                board.SetPiece(new King(board, Color.White), new Position(1, 2));
+                board.SetPiece(new Rook(board, Color.White), new Position(3, 2));
+                board.SetPiece(new Rook(board, Color.Black), new Position(0, 5));
 
+
+                Display.PrintBoard(board);
 
             } catch(Exception ex)
             {
