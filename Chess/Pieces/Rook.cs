@@ -19,7 +19,7 @@ namespace Pieces
 
             //above
             position.SetValues(Position.Row - 1, Position.Column);
-            while(Board.PositionIsValid(position) && CanMove(position))
+            while(Board.PositionIsValid(position) && PositionIsFree(position))
             {
                 matrix[position.Row, position.Column] = true;
                 if(Board.GetPiece(position.Row, position.Column) != null)
@@ -31,7 +31,7 @@ namespace Pieces
 
             //under
             position.SetValues(Position.Row + 1, Position.Column);
-            while (Board.PositionIsValid(position) && CanMove(position))
+            while (Board.PositionIsValid(position) && PositionIsFree(position))
             {
                 matrix[position.Row, position.Column] = true;
                 if (Board.GetPiece(position.Row, position.Column) != null)
@@ -43,7 +43,7 @@ namespace Pieces
 
             //right
             position.SetValues(Position.Row, Position.Column + 1);
-            while (Board.PositionIsValid(position) && CanMove(position))
+            while (Board.PositionIsValid(position) && PositionIsFree(position))
             {
                 matrix[position.Row, position.Column] = true;
                 if (Board.GetPiece(position.Row, position.Column) != null)
@@ -55,7 +55,7 @@ namespace Pieces
 
             //left
             position.SetValues(Position.Row, Position.Column - 1);
-            while (Board.PositionIsValid(position) && CanMove(position))
+            while (Board.PositionIsValid(position) && PositionIsFree(position))
             {
                 matrix[position.Row, position.Column] = true;
                 if (Board.GetPiece(position.Row, position.Column) != null)

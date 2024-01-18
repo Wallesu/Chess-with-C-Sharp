@@ -22,12 +22,32 @@ namespace BoardNS
             NumberOfTimesMoved++;
         }
 
-        protected bool CanMove(Position position)
+        protected bool PositionIsFree(Position position)
         {
             Piece piece = Board.GetPiece(position);
             return piece == null || piece.Color != this.Color;
         }
 
+        public bool CanMoveTo(Position position)
+        {
+            return AllowedMovements()[position.Row, position.Column];
+        }
+
+        public bool HasAllowedMovements()
+        {
+            bool[,] matrix = AllowedMovements();
+            for (int i = 0; i < Board.Rows; i++)
+            {
+                for (int j = 0; j < Board.Columns; j++)
+                {
+                    if (matrix[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public abstract bool[,] AllowedMovements();
 
     }
