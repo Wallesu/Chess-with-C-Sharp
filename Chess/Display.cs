@@ -21,6 +21,16 @@ namespace Chess
             Console.WriteLine("  a b c d e f g h");
         }
 
+        public static void PrintMatch(Match match)
+        {
+            PrintBoard(match.Board);
+            Console.WriteLine();
+            PrintCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine("Round: " + match.Round);
+            Console.WriteLine("Waiting for move: " + match.CurrentPlayer);
+        }
+
         public static void PrintBoard(Board board, bool[,] allowedPositionsToPieceMove)
         {
             ConsoleColor currentBackgroundColor = Console.BackgroundColor;
@@ -47,6 +57,31 @@ namespace Chess
             Console.WriteLine("  a b c d e f g h");
         }
 
+        public static void PrintCapturedPieces(Match match)
+        {
+            Console.WriteLine(" -=-=- Captured pieces -=-=- ");
+            Console.Write("Whites: ");
+            PrintListOfPieces(match.CapturedPiecesOfColor(Color.White));
+            Console.WriteLine();
+
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.Write("Blacks: ");
+            PrintListOfPieces(match.CapturedPiecesOfColor(Color.Black));
+
+            Console.ForegroundColor = currentColor;
+        }
+
+        public static void PrintListOfPieces(HashSet<Piece> list)
+        {
+            Console.Write("[");
+            foreach (Piece piece in list)
+            {
+                Console.Write(piece + " ");
+            }
+            Console.Write("]");
+        }
         public static void PrintPiece(Piece piece)
         {
             if(piece == null) Console.Write("- ");

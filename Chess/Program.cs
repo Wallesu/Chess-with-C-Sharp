@@ -16,10 +16,7 @@ namespace Chess
                 try
                 {
                     Console.Clear();
-                    Display.PrintBoard(match.Board);
-                    Console.WriteLine();
-                    Console.WriteLine("Round: " + match.Round);
-                    Console.WriteLine("Waiting for move: " + match.CurrentPlayer);
+                    Display.PrintMatch(match);
 
                     Console.WriteLine();
                     Console.Write("Origem: ", match.Round);
