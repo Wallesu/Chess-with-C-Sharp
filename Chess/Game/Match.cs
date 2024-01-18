@@ -13,6 +13,7 @@ namespace Game
         public Color CurrentPlayer { get; private set; }
         public HashSet<Piece> Pieces { get; set; }
         public HashSet<Piece> CapturedPieces { get; set; }
+        public bool Check { get; private set; }
 
         public Match()
         {
@@ -28,7 +29,7 @@ namespace Game
             Display.PrintBoard(Board);
         }
 
-        public void ExecuteMoviment(Position initial, Position destiny)
+        public Piece ExecuteMoviment(Position initial, Position destiny)
         {
             Piece piece = Board.RemovePiece(initial);
             piece.IncrementNumberOfTimesMoved();
@@ -38,11 +39,40 @@ namespace Game
             {
                 CapturedPieces.Add(capturedPiece);
             }
+            return capturedPiece;
+        }
+
+        public void UndoMoviment(Position initial, Position destiny, Piece capturedPiece)
+        {
+            Piece piece = Board.RemovePiece(destiny);
+
+            if (capturedPiece != null)
+            {
+                CapturedPieces.Remove(capturedPiece);
+                Board.SetPiece(capturedPiece, destiny);
+
+            }
+            piece.DecrementNumberOfTimesMoved();
+            Board.SetPiece(piece, initial);
         }
 
         public void ExecutePlay(Position initial, Position destiny)
         {
-            ExecuteMoviment(initial, destiny);
+            Piece capturedPiece = ExecuteMoviment(initial, destiny);
+            if(IsInCheck(CurrentPlayer))
+            {
+                UndoMoviment(initial, destiny, capturedPiece);
+                throw new BoardException("You can't put yourself in check!");
+            }
+
+            if (IsInCheck(GetOpponentColor(CurrentPlayer))){
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+
             Round++;
             ChangePlayer();
         }
@@ -85,15 +115,17 @@ namespace Game
 
         private void SetPieces()
         {
-            SetPiece('a', 1, new King(Board, Color.White));
             SetPiece('e', 1, new King(Board, Color.White));
             SetPiece('d', 1, new Rook(Board, Color.White));
             SetPiece('d', 2, new Rook(Board, Color.White));
             SetPiece('e', 2, new Rook(Board, Color.White));
             SetPiece('f', 2, new Rook(Board, Color.White));
             SetPiece('f', 1, new Rook(Board, Color.White));
+
             SetPiece('a', 8, new Rook(Board, Color.Black));
             SetPiece('e', 8, new King(Board, Color.Black));
+            SetPiece('e', 7, new Rook(Board, Color.Black));
+
 
         }
 
@@ -128,6 +160,49 @@ namespace Game
             }
             piecesOfGivenColor.ExceptWith(CapturedPiecesOfColor(color));
             return piecesOfGivenColor;
+        }
+
+        private Color GetOpponentColor(Color color)
+        {
+            if(color == Color.White)
+            {
+                return Color.Black;
+            }
+            else
+            {
+                return Color.White;
+            }
+        }
+
+        private Piece GetKing(Color color)
+        {
+            foreach(Piece piece in AvailablePiecesOfColor(color))
+            {
+                if(piece is King)
+                {
+                    return piece;
+                }
+            }
+            return null;
+        }
+
+        public bool IsInCheck(Color color)
+        {
+            Piece king = GetKing(color);
+            if(king == null)
+            {
+                throw new BoardException("There is no " + color + " king!");
+            }
+
+            foreach(Piece piece in AvailablePiecesOfColor(GetOpponentColor(color)))
+            {
+                bool[,] allowedOpponetPieceMovements = piece.AllowedMovements();
+                if (allowedOpponetPieceMovements[king.Position.Row, king.Position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -21,6 +21,10 @@ namespace BoardNS
         {
             NumberOfTimesMoved++;
         }
+        public void DecrementNumberOfTimesMoved()
+        {
+            NumberOfTimesMoved--;
+        }
 
         protected bool PositionIsFree(Position position)
         {

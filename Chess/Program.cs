@@ -34,7 +34,7 @@ namespace Chess
                     Position destinyPosition = Display.ReadPosition().ToPosition();
                     match.ValidateDestinyPosition(initialPosition, destinyPosition);
 
-                    match.ExecuteMoviment(initialPosition, destinyPosition);
+                    match.ExecutePlay(initialPosition, destinyPosition);
                 } catch (BoardException ex)
                 {
                     Console.WriteLine();

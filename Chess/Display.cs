@@ -29,6 +29,10 @@ namespace Chess
             Console.WriteLine();
             Console.WriteLine("Round: " + match.Round);
             Console.WriteLine("Waiting for move: " + match.CurrentPlayer);
+            if (match.Check)
+            {
+                Console.WriteLine("You are in check!");
+            }
         }
 
         public static void PrintBoard(Board board, bool[,] allowedPositionsToPieceMove)
