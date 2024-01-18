@@ -34,6 +34,11 @@ namespace Game
         private void SetPieces()
         {
             Board.SetPiece(new Rook(Board, Color.White), new BoardPosition('a', 1).ToPosition());
+            Board.SetPiece(new King(Board, Color.White), new BoardPosition('e', 1).ToPosition());
+
+            Board.SetPiece(new Rook(Board, Color.Black), new BoardPosition('a', 8).ToPosition());
+            Board.SetPiece(new King(Board, Color.Black), new BoardPosition('e', 8).ToPosition());
+
         }
     }
 }

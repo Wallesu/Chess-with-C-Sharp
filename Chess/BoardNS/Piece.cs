@@ -2,7 +2,7 @@
 
 namespace BoardNS
 {
-    class Piece
+    abstract class Piece
     {
         public Position Position { get; set; }
         public Color Color { get; set; }
@@ -21,6 +21,14 @@ namespace BoardNS
         {
             NumberOfTimesMoved++;
         }
+
+        protected bool CanMove(Position position)
+        {
+            Piece piece = Board.GetPiece(position);
+            return piece == null || piece.Color != this.Color;
+        }
+
+        public abstract bool[,] AllowedMovements();
 
     }
 }
