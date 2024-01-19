@@ -34,6 +34,7 @@ namespace BoardNS
 
         public bool CanMoveTo(Position position)
         {
+            //if(!Board.PositionIsValid(position)) return false;
             return AllowedMovements()[position.Row, position.Column];
         }
 

@@ -73,8 +73,15 @@ namespace Game
                 Check = false;
             }
 
-            Round++;
-            ChangePlayer();
+            if (IsCheckmate(GetOpponentColor(CurrentPlayer)))
+            {
+                IsFinished = true;
+            }
+            else
+            {
+                Round++;
+                ChangePlayer();
+            }
         }
 
         public void ValidateInitialPosition(Position initial)
@@ -203,6 +210,39 @@ namespace Game
                 }
             }
             return false;
+        }
+
+        public bool IsCheckmate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+
+            foreach(Piece piece in AvailablePiecesOfColor(color))
+            {
+                bool[,] allowedMovements = piece.AllowedMovements();
+                for(int i = 0; i < Board.Columns; i++)
+                {
+                    for(int j = 0; j < Board.Rows; j++)
+                    {
+                        if (allowedMovements[i, j])
+                        {
+                            Position initial = piece.Position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = ExecuteMoviment(initial, destiny);
+                            bool isInCheck = IsInCheck(color);
+                            UndoMoviment(initial, destiny, capturedPiece);
+
+                            if (!isInCheck)
+                            {        
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
     }
 }

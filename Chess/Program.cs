@@ -40,13 +40,11 @@ namespace Chess
                     Console.WriteLine();
                     Console.WriteLine(ex.Message);
                     Console.ReadLine();
-                }
-                    
-
+                }        
             }
 
+            Console.WriteLine("Checkmate!");
 
-            
         }
     }
 }
