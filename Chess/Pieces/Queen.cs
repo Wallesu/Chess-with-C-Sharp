@@ -8,7 +8,7 @@ namespace Pieces
 
         public override string ToString()
         {
-            return "D";
+            return "♛";
         }
 
         public override bool[,] AllowedMovements()

@@ -86,7 +86,9 @@ namespace Game
 
         public void ValidateInitialPosition(Position initial)
         {
-            if(Board.GetPiece(initial) == null)
+            Board.ValidatePosition(initial);
+
+            if (Board.GetPiece(initial) == null)
             {
                 throw new BoardException("There is no piece in this position!");
             }
@@ -102,6 +104,8 @@ namespace Game
 
         public void ValidateDestinyPosition(Position inicial, Position destiny)
         {
+            Board.ValidatePosition(destiny);
+
             if (!Board.GetPiece(inicial).CanMoveTo(destiny))
             {
                 throw new BoardException("Invalid destiny position!");
@@ -139,8 +143,6 @@ namespace Game
             SetPiece('f', 2, new Pawn(Board, Color.White));
             SetPiece('g', 2, new Pawn(Board, Color.White));
             SetPiece('h', 2, new Pawn(Board, Color.White));
-
-
 
             SetPiece('a', 8, new Rook(Board, Color.Black));
             SetPiece('b', 8, new Knight(Board, Color.Black));
