@@ -26,7 +26,7 @@ namespace BoardNS
             NumberOfTimesMoved--;
         }
 
-        protected bool PositionIsFree(Position position)
+        protected bool PositionIsFreeOrHasEnemy(Position position)
         {
             Piece piece = Board.GetPiece(position);
             return piece == null || piece.Color != this.Color;
